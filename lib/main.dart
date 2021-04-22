@@ -1,3 +1,5 @@
+import 'package:DevQuiz/challenge/challenge_page.dart';
+import 'package:DevQuiz/home/home_page.dart';
 import 'package:DevQuiz/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -23,7 +26,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashPage(),
+      // home: SplashPage(),
+      home: ChallengePage(),
     );
   }
 }

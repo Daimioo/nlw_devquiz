@@ -9,9 +9,9 @@ class AppBarWidget extends PreferredSize {
           preferredSize: Size.fromHeight(250),
           child: Container(
             height: 250,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
+            // padding: const EdgeInsets.symmetric(
+            //   horizontal: 20,
+            // ),
             child: Stack(
               children: [
                 Container(
