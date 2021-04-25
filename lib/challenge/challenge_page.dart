@@ -2,13 +2,18 @@ import 'package:DevQuiz/challenge/challenge_controller.dart';
 import 'package:DevQuiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
+import 'package:DevQuiz/result/result_page.dart';
 import 'package:DevQuiz/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String title;
 
-  const ChallengePage({required this.questions});
+  const ChallengePage({
+    required this.questions,
+    required this.title,
+  });
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -30,6 +35,11 @@ class _ChallengePageState extends State<ChallengePage> {
     if (controller.currentPage < widget.questions.length) {
       pageController.nextPage(duration: Duration(milliseconds: 100), curve: Curves.linear);
     }
+  }
+
+  void onSelected(bool value) {
+    if (value) controller.rightQuestions++;
+    nextPage();
   }
 
   @override
@@ -63,7 +73,7 @@ class _ChallengePageState extends State<ChallengePage> {
             .map(
               (e) => QuizWidget(
                 question: e,
-                onSelected: nextPage,
+                onSelected: (value) => onSelected(value),
               ),
             )
             .toList(),
@@ -93,7 +103,16 @@ class _ChallengePageState extends State<ChallengePage> {
                   Expanded(
                     child: NextButtonWidget.green(
                       label: 'Confirmar',
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultPage(
+                            result: controller.rightQuestions,
+                            title: widget.title,
+                            length: widget.questions.length,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ]
